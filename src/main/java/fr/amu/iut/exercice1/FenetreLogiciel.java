@@ -1,6 +1,7 @@
 package fr.amu.iut.exercice1;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -59,15 +60,18 @@ public class FenetreLogiciel extends Application {
         grid.add(new Text("Nom :"), 1, 4); // column=1 row=0
         grid.add(new TextField(), 3, 4);
 
-        grid.add(new Text("Email :"), 1, 8); // column=1 row=0
-        grid.add(new TextField(), 3, 8);
+        grid.add(new Text("Email :"), 1, 5); // column=1 row=0
+        grid.add(new TextField(), 3, 5);
 
-        grid.add(new Text("Password :"), 1, 10); // column=1 row=0
-        grid.add(new TextField(), 3, 10);
+        grid.add(new Text("Password :"), 1, 6); // column=1 row=0
+        grid.add(new TextField(), 3, 6);
 
         grid.setAlignment(Pos.CENTER);
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(10));
 
-        HBox btnb = new HBox(6);
+        HBox btnb = new HBox(10);
         Button Sub = new Button("Submit");
         Button Can = new Button("Cancel");
         btnb.getChildren().addAll(Sub, Can);
