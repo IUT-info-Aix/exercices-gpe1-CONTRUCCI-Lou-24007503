@@ -4,6 +4,8 @@ import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
+import java.util.List;
+
 class Personnage extends Group {
     protected final static double LARGEUR_MOITIE_PERSONNAGE = 10;
     protected final static double LARGEUR_PERSONNAGE = LARGEUR_MOITIE_PERSONNAGE * 2;
@@ -80,5 +82,15 @@ class Personnage extends Group {
         return getBoundsInParent().contains(autrePersonnage.getBoundsInParent())
                 || autrePersonnage.getBoundsInParent().contains(getBoundsInParent());
     }
+
+    boolean CollisionAvecObstacle(List<Obstacle> obstacles) {
+        for (Obstacle obstacle : obstacles) {
+            if (this.getBoundsInParent().intersects(obstacle.getBoundsInParent())) {
+                return true; // Collision détectée avec un obstacle
+            }
+        }
+        return false; // Aucune collision
+    }
+
 
 }

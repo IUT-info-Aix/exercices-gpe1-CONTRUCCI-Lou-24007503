@@ -9,11 +9,18 @@ import javafx.stage.Stage;
 import javafx.scene.control.Label;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class JeuMain extends Application {
 
     private Scene scene;
     private BorderPane root;
+
+
+    public static ArrayList<Obstacle> obstacles = new ArrayList<>();
+    Obstacle mur1 = new Obstacle(100, 200, 150,200);
+    Obstacle mur2 = new Obstacle(400, 0, 250,50);
+
 
     @Override
     public void start(Stage primaryStage) {
@@ -23,13 +30,24 @@ public class JeuMain extends Application {
         //Acteurs du jeu
         Personnage pacman = new Pacman();
         Personnage fantome = new Fantome();
-        // on positionne le fantôme 20 positions vers la droite
-        fantome.setLayoutX(20 * 10);
+
+        pacman.setLayoutY(0);
+        pacman.setLayoutX(0);
+        // on positionne le fantôme
+        fantome.setLayoutY(460);
+        fantome.setLayoutX(620);
         //panneau du jeu
         Pane jeu = new Pane();
         jeu.setPrefSize(640, 480);
         jeu.getChildren().add(pacman);
         jeu.getChildren().add(fantome);
+
+        obstacles.add(mur1);
+        root.getChildren().addAll(mur1);
+        obstacles.add(mur2);
+        root.getChildren().addAll(mur2);
+
+
         root.setCenter(jeu);
         //on construit une scene 640 * 480 pixels
         scene = new Scene(root);
@@ -44,7 +62,7 @@ public class JeuMain extends Application {
     }
 
     /**
-     * Permet de gérer les événements de type clavier, pression des touches
+     * Permet de gérer les événements dDARKGRAYe type clavier, pression des touches
      * pour le j1(up,down, right, left), pour le j2( z,q,s,d)
      *
      * @param j1
@@ -52,6 +70,12 @@ public class JeuMain extends Application {
      */
     private void deplacer(Personnage j1, Personnage j2) {
         scene.setOnKeyPressed((KeyEvent event) -> {
+            double oldX1 = j1.getLayoutX();
+            double oldY1 = j1.getLayoutY();
+
+            double oldX2 = j2.getLayoutX();
+            double oldY2 = j2.getLayoutY();
+
             switch (event.getCode()) {
                 //Pacmman
                 case LEFT:
@@ -81,12 +105,28 @@ public class JeuMain extends Application {
                     break;
 
             }
-            if (j1.estEnCollision(j2)){
+            if (j1.estEnCollision(j2) ) {
                 System.out.println("Collision....");
                 Label label = new Label("Game Over...");
                 label.setStyle("-fx-font-size: 36px; -fx-text-fill: #873333; -fx-alignment: center;");
                 root.setCenter(label);
 
+            }
+
+            if (j2.CollisionAvecObstacle(obstacles)) {
+                j1.setLayoutY(oldY1);
+                j1.setLayoutX(oldX1);
+                // on positionne le fantôme
+                j2.setLayoutY(oldY2);
+                j2.setLayoutX(oldX2);
+            }
+
+            if (j1.CollisionAvecObstacle(obstacles)) {
+                j1.setLayoutY(oldY1);
+                j1.setLayoutX(oldX1);
+                // on positionne le fantôme
+                j2.setLayoutY(oldY2);
+                j2.setLayoutX(oldX2);
             }
 
         });
