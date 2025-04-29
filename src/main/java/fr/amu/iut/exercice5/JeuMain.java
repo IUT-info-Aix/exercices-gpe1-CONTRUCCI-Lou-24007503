@@ -6,6 +6,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.scene.control.Label;
+
+import java.awt.*;
 
 public class JeuMain extends Application {
 
@@ -78,8 +81,14 @@ public class JeuMain extends Application {
                     break;
 
             }
-            if (j1.estEnCollision(j2))
+            if (j1.estEnCollision(j2)){
                 System.out.println("Collision....");
+                Label label = new Label("Game Over...");
+                label.setStyle("-fx-font-size: 36px; -fx-text-fill: #873333; -fx-alignment: center;");
+                root.setCenter(label);
+
+            }
+
         });
     }
 
