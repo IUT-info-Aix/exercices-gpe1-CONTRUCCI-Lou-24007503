@@ -50,14 +50,31 @@ public class JeuMain extends Application {
     private void deplacer(Personnage j1, Personnage j2) {
         scene.setOnKeyPressed((KeyEvent event) -> {
             switch (event.getCode()) {
+                //Pacmman
                 case LEFT:
                     j1.deplacerAGauche();
                     break;
                 case RIGHT:
                     j1.deplacerADroite(scene.getWidth());
                     break;
+                case UP:
+                    j1.deplacerEnHaut();
+                    break;
+                case DOWN:
+                    j1.deplacerEnBas(scene.getWidth());
+                    break;
+                //Fantome
                 case Z:
-                    //j2...... vers le haut;
+                    j2.deplacerEnHaut();
+                    break;
+                case S:
+                    j2.deplacerEnBas(scene.getWidth());
+                    break;
+                case Q:
+                    j2.deplacerAGauche();
+                    break;
+                case D:
+                    j2.deplacerADroite(scene.getWidth());
                     break;
 
             }
