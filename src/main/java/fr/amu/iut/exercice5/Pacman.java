@@ -3,6 +3,8 @@ package fr.amu.iut.exercice5;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
+import java.util.ArrayList;
+
 public class Pacman extends Personnage {
 
     private Line bouche;
@@ -17,31 +19,31 @@ public class Pacman extends Personnage {
     }
 
     @Override
-    public void deplacerAGauche() {
-        super.deplacerAGauche();
+    public void deplacerAGauche(ArrayList<Obstacle> obstacles) {
+        super.deplacerAGauche(obstacles);
         //sens de la bouche
         bouche.setEndX(bouche.getStartX() - LARGEUR_MOITIE_PERSONNAGE + .5);
         bouche.setEndY(bouche.getStartY());
     }
 
     @Override
-    public void deplacerADroite(double largeurJeu) {
-        super.deplacerADroite(largeurJeu);
+    public void deplacerADroite(double largeurJeu,ArrayList<Obstacle> obstacles) {
+        super.deplacerADroite(largeurJeu,obstacles);
         //sens de la bouche
         bouche.setEndX(bouche.getStartX() + LARGEUR_MOITIE_PERSONNAGE - .5);
         bouche.setEndY(bouche.getStartY());
     }
 
     @Override
-    public void deplacerEnBas(double hauteurJeu) {
-        super.deplacerEnBas(hauteurJeu);
+    public void deplacerEnBas(double hauteurJeu,ArrayList<Obstacle> obstacles) {
+        super.deplacerEnBas(hauteurJeu,obstacles);
         bouche.setEndX(bouche.getStartX() );
         bouche.setEndY(bouche.getStartY() + LARGEUR_MOITIE_PERSONNAGE - .5);
     }
 
     @Override
-    public void deplacerEnHaut() {
-        super.deplacerEnHaut();
+    public void deplacerEnHaut(ArrayList<Obstacle> obstacles) {
+        super.deplacerEnHaut(obstacles);
         //sens de la bouche
         bouche.setEndX(bouche.getStartX());
         bouche.setEndY(bouche.getStartY() - LARGEUR_MOITIE_PERSONNAGE + .5);

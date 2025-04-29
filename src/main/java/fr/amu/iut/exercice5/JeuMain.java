@@ -18,8 +18,8 @@ public class JeuMain extends Application {
 
 
     public static ArrayList<Obstacle> obstacles = new ArrayList<>();
-    Obstacle mur1 = new Obstacle(100, 200, 150,200);
-    Obstacle mur2 = new Obstacle(400, 0, 250,50);
+    Obstacle mur1 = new Obstacle(100, 200, 200,200);
+    Obstacle mur2 = new Obstacle(400, 0, 300,100);
 
 
     @Override
@@ -42,9 +42,9 @@ public class JeuMain extends Application {
         jeu.getChildren().add(pacman);
         jeu.getChildren().add(fantome);
 
-        obstacles.add(mur1);
+        JeuMain.obstacles.add(mur1);
         root.getChildren().addAll(mur1);
-        obstacles.add(mur2);
+        JeuMain.obstacles.add(mur2);
         root.getChildren().addAll(mur2);
 
 
@@ -79,29 +79,29 @@ public class JeuMain extends Application {
             switch (event.getCode()) {
                 //Pacmman
                 case LEFT:
-                    j1.deplacerAGauche();
+                    j1.deplacerAGauche(obstacles);
                     break;
                 case RIGHT:
-                    j1.deplacerADroite(scene.getWidth());
+                    j1.deplacerADroite(scene.getWidth(),obstacles);
                     break;
                 case UP:
-                    j1.deplacerEnHaut();
+                    j1.deplacerEnHaut(obstacles);
                     break;
                 case DOWN:
-                    j1.deplacerEnBas(scene.getWidth());
+                    j1.deplacerEnBas(scene.getWidth(),obstacles);
                     break;
                 //Fantome
                 case Z:
-                    j2.deplacerEnHaut();
+                    j2.deplacerEnHaut(obstacles);
                     break;
                 case S:
-                    j2.deplacerEnBas(scene.getWidth());
+                    j2.deplacerEnBas(scene.getWidth(),obstacles);
                     break;
                 case Q:
-                    j2.deplacerAGauche();
+                    j2.deplacerAGauche(obstacles);
                     break;
                 case D:
-                    j2.deplacerADroite(scene.getWidth());
+                    j2.deplacerADroite(scene.getWidth(),obstacles);
                     break;
 
             }
@@ -111,22 +111,6 @@ public class JeuMain extends Application {
                 label.setStyle("-fx-font-size: 36px; -fx-text-fill: #873333; -fx-alignment: center;");
                 root.setCenter(label);
 
-            }
-
-            if (j2.CollisionAvecObstacle(obstacles)) {
-                j1.setLayoutY(oldY1);
-                j1.setLayoutX(oldX1);
-                // on positionne le fantôme
-                j2.setLayoutY(oldY2);
-                j2.setLayoutX(oldX2);
-            }
-
-            if (j1.CollisionAvecObstacle(obstacles)) {
-                j1.setLayoutY(oldY1);
-                j1.setLayoutX(oldX1);
-                // on positionne le fantôme
-                j2.setLayoutY(oldY2);
-                j2.setLayoutX(oldX2);
             }
 
         });
