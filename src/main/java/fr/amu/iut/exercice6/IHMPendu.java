@@ -52,7 +52,7 @@ public class IHMPendu extends Application {
 
         root.getChildren().addAll( imagependu, labelVie, labelMot, lettresGrid);
         root.setAlignment(Pos.CENTER);
-        root.setStyle("-fx-background-color: cyan;" ) ;
+        root.setStyle("-fx-background-color: #ADD8E6 ;" ) ;
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
