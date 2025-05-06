@@ -1,4 +1,4 @@
-package fr.amu.iut.exercice1;
+package fr.amu.iut.exercice11;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -6,6 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -57,7 +58,23 @@ public class Palette extends Application {
         rouge = new Button("Rouge");
         bleu = new Button("Bleu");
 
-        /* VOTRE CODE ICI */
+        vert.setOnAction(event -> {
+            panneau.setStyle("-fx-background-color: green;");
+            nbVert = nbVert + 1;
+            texteDuHaut.setText(String.format("Vert choisi %d fois", nbVert));
+        });
+
+        rouge.setOnAction(event -> {
+            panneau.setStyle("-fx-background-color: red;");
+            nbRouge = nbRouge + 1;
+            texteDuHaut.setText(String.format("Rouge choisi %d fois", nbRouge));
+        });
+
+        bleu.setOnAction(event -> {
+            panneau.setStyle("-fx-background-color: blue;");
+            nbBleu = nbBleu + 1;
+            texteDuHaut.setText(String.format("Bleu choisi %d fois", nbBleu));
+        });
 
         boutons.getChildren().addAll(vert, rouge, bleu);
 
