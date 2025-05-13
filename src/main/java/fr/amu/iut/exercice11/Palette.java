@@ -3,10 +3,7 @@ package fr.amu.iut.exercice11;
 import javafx.application.Application;
 import javafx.beans.binding.Binding;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -51,24 +48,24 @@ public class Palette extends Application {
 
         nbFois = new SimpleIntegerProperty(0);
         message = new SimpleStringProperty();
-
         ecritDuHaut = new SimpleStringProperty();
+        couleurPanneau = new SimpleStringProperty("#000000");
         texteDuHaut = new Label();
-        texteDuHaut.textProperty().bind(Bindings.concat("Total de clics : ", " ",  nbFois,ecritDuHaut ));
+        texteDuBas = new Label();
+
         texteDuHaut.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         BorderPane.setAlignment(texteDuHaut, Pos.CENTER);
 
         panneau = new Pane();
         panneau.setPrefSize(600, 200);
-        couleurPanneau = new SimpleStringProperty("#000000");
-        panneau.styleProperty().bind(Bindings.concat ("-fx-background-color: ", couleurPanneau, ";"));
 
+        createBinding();
 
         VBox bas = new VBox();
         boutons = new HBox(10);
         boutons.setAlignment(Pos.CENTER);
         boutons.setPadding(new Insets(10, 5, 10, 5));
-        texteDuBas = new Label();
+
         bas.setAlignment(Pos.CENTER_RIGHT);
         bas.getChildren().addAll(boutons, texteDuBas);
 
@@ -81,7 +78,7 @@ public class Palette extends Application {
             nbVert = nbVert + 1;
             nbFois.set(nbFois.get() + 1);
             ecritDuHaut.set(String.format("- Vert choisi %d fois",  nbVert));
-            message.set("Vert choisi ");
+            message.set("Vert");
             vert.setText(message.get());
         });
 
@@ -90,7 +87,7 @@ public class Palette extends Application {
             nbRouge = nbRouge + 1;
             nbFois.set(nbFois.get() + 1);
             ecritDuHaut.set(String.format("- Rouge choisi %d fois" , nbRouge));
-            message.set("Rouge choisi ");
+            message.set("Rouge");
             rouge.setText(message.get());
         });
 
@@ -99,7 +96,7 @@ public class Palette extends Application {
             nbBleu = nbBleu + 1;
             nbFois.set(nbFois.get() + 1);
             ecritDuHaut.set(String.format("- Bleu choisi %d fois" , nbBleu));
-            message.set("Bleu choisi ");
+            message.set("Bleu");
             bleu.setText(message.get());
         });
 
@@ -114,5 +111,20 @@ public class Palette extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-}
 
+    private void createBinding(){
+        panneau.styleProperty().bind(Bindings.concat ("-fx-background-color: ", couleurPanneau, ";"));
+
+        BooleanProperty pasEncoreDeClic = new SimpleBooleanProperty(false);
+        pasEncoreDeClic.bind(Bindings.equal(nbFois, 0));
+
+        texteDuHaut.textProperty().bind(Bindings.when(pasEncoreDeClic)
+                .then("Cliquez sur un bouton !")
+                .otherwise(Bindings.concat("Total de clics : ", " ",  nbFois,ecritDuHaut)));
+
+        texteDuBas.textProperty().bind(Bindings.when(pasEncoreDeClic).then(" ")
+                .otherwise(Bindings.concat(message, " est une joli couleur !")));
+        texteDuBas.styleProperty().bind(Bindings.concat("-fx-text-fill: ", couleurPanneau, ";"));
+
+    }
+}
