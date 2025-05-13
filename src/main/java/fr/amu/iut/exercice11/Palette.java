@@ -3,6 +3,8 @@ package fr.amu.iut.exercice11;
 import javafx.application.Application;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -37,6 +39,7 @@ public class Palette extends Application {
     private Label texteDuBas;
 
     private IntegerProperty nbFois;
+    private StringProperty message;
 
 
     @Override
@@ -44,6 +47,7 @@ public class Palette extends Application {
         root = new BorderPane();
 
         nbFois = new SimpleIntegerProperty(0);
+        message = new SimpleStringProperty();
 
         texteDuHaut = new Label();
         texteDuHaut.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
@@ -68,7 +72,9 @@ public class Palette extends Application {
             panneau.setStyle("-fx-background-color: green;");
             nbVert = nbVert + 1;
             nbFois.set(nbFois.get() + 1);
-            texteDuHaut.setText(String.format("Total de clic %d - Vert choisi %d fois", nbFois.get() ,nbVert));
+            texteDuHaut.setText(String.format("Total de clic %d -Vert choisi %d fois", nbFois.get(), nbVert));
+            message.set("Vert choisi ");
+            vert.setText(message.get());
         });
 
         rouge.setOnAction(event -> {
@@ -76,6 +82,8 @@ public class Palette extends Application {
             nbRouge = nbRouge + 1;
             nbFois.set(nbFois.get() + 1);
             texteDuHaut.setText(String.format("Total de clic %d -Rouge choisi %d fois",nbFois.get() , nbRouge));
+            message.set("Rouge choisi ");
+            rouge.setText(message.get());
         });
 
         bleu.setOnAction(event -> {
@@ -83,6 +91,8 @@ public class Palette extends Application {
             nbBleu = nbBleu + 1;
             nbFois.set(nbFois.get() + 1);
             texteDuHaut.setText(String.format("Total de clic %d -Bleu choisi %d fois",nbFois.get() , nbBleu));
+            message.set("Bleu choisi ");
+            bleu.setText(message.get());
         });
 
         boutons.getChildren().addAll(vert, rouge, bleu);
