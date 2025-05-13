@@ -1,6 +1,8 @@
 package fr.amu.iut.exercice11;
 
 import javafx.application.Application;
+import javafx.beans.binding.Binding;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -40,7 +42,8 @@ public class Palette extends Application {
 
     private IntegerProperty nbFois;
     private StringProperty message;
-
+    private StringProperty ecritDuHaut;
+    private StringProperty couleurPanneau;
 
     @Override
     public void start(Stage primaryStage) {
@@ -49,12 +52,17 @@ public class Palette extends Application {
         nbFois = new SimpleIntegerProperty(0);
         message = new SimpleStringProperty();
 
+        ecritDuHaut = new SimpleStringProperty();
         texteDuHaut = new Label();
+        texteDuHaut.textProperty().bind(Bindings.concat("Total de clics : ", " ",  nbFois,ecritDuHaut ));
         texteDuHaut.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         BorderPane.setAlignment(texteDuHaut, Pos.CENTER);
 
         panneau = new Pane();
         panneau.setPrefSize(600, 200);
+        couleurPanneau = new SimpleStringProperty("#000000");
+        panneau.styleProperty().bind(Bindings.concat ("-fx-background-color: ", couleurPanneau, ";"));
+
 
         VBox bas = new VBox();
         boutons = new HBox(10);
@@ -69,28 +77,28 @@ public class Palette extends Application {
         bleu = new Button("Bleu");
 
         vert.setOnAction(event -> {
-            panneau.setStyle("-fx-background-color: green;");
+            couleurPanneau.set( "#008020");
             nbVert = nbVert + 1;
             nbFois.set(nbFois.get() + 1);
-            texteDuHaut.setText(String.format("Total de clic %d -Vert choisi %d fois", nbFois.get(), nbVert));
+            ecritDuHaut.set(String.format("- Vert choisi %d fois",  nbVert));
             message.set("Vert choisi ");
             vert.setText(message.get());
         });
 
         rouge.setOnAction(event -> {
-            panneau.setStyle("-fx-background-color: red;");
+            couleurPanneau.set("#BB0B0B");
             nbRouge = nbRouge + 1;
             nbFois.set(nbFois.get() + 1);
-            texteDuHaut.setText(String.format("Total de clic %d -Rouge choisi %d fois",nbFois.get() , nbRouge));
+            ecritDuHaut.set(String.format("- Rouge choisi %d fois" , nbRouge));
             message.set("Rouge choisi ");
             rouge.setText(message.get());
         });
 
         bleu.setOnAction(event -> {
-            panneau.setStyle("-fx-background-color: blue;");
+            couleurPanneau.set("#0080FF");
             nbBleu = nbBleu + 1;
             nbFois.set(nbFois.get() + 1);
-            texteDuHaut.setText(String.format("Total de clic %d -Bleu choisi %d fois",nbFois.get() , nbBleu));
+            ecritDuHaut.set(String.format("- Bleu choisi %d fois" , nbBleu));
             message.set("Bleu choisi ");
             bleu.setText(message.get());
         });
