@@ -1,6 +1,8 @@
 package fr.amu.iut.exercice11;
 
 import javafx.application.Application;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -34,17 +36,21 @@ public class Palette extends Application {
 
     private Label texteDuBas;
 
+    private IntegerProperty nbFois;
+
 
     @Override
     public void start(Stage primaryStage) {
         root = new BorderPane();
+
+        nbFois = new SimpleIntegerProperty(0);
 
         texteDuHaut = new Label();
         texteDuHaut.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         BorderPane.setAlignment(texteDuHaut, Pos.CENTER);
 
         panneau = new Pane();
-        panneau.setPrefSize(400, 200);
+        panneau.setPrefSize(600, 200);
 
         VBox bas = new VBox();
         boutons = new HBox(10);
@@ -61,19 +67,22 @@ public class Palette extends Application {
         vert.setOnAction(event -> {
             panneau.setStyle("-fx-background-color: green;");
             nbVert = nbVert + 1;
-            texteDuHaut.setText(String.format("Vert choisi %d fois", nbVert));
+            nbFois.set(nbFois.get() + 1);
+            texteDuHaut.setText(String.format("Total de clic %d - Vert choisi %d fois", nbFois.get() ,nbVert));
         });
 
         rouge.setOnAction(event -> {
             panneau.setStyle("-fx-background-color: red;");
             nbRouge = nbRouge + 1;
-            texteDuHaut.setText(String.format("Rouge choisi %d fois", nbRouge));
+            nbFois.set(nbFois.get() + 1);
+            texteDuHaut.setText(String.format("Total de clic %d -Rouge choisi %d fois",nbFois.get() , nbRouge));
         });
 
         bleu.setOnAction(event -> {
             panneau.setStyle("-fx-background-color: blue;");
             nbBleu = nbBleu + 1;
-            texteDuHaut.setText(String.format("Bleu choisi %d fois", nbBleu));
+            nbFois.set(nbFois.get() + 1);
+            texteDuHaut.setText(String.format("Total de clic %d -Bleu choisi %d fois",nbFois.get() , nbBleu));
         });
 
         boutons.getChildren().addAll(vert, rouge, bleu);
