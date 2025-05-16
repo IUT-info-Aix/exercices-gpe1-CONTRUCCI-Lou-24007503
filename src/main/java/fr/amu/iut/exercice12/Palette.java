@@ -80,6 +80,8 @@ public class Palette extends Application {
                 texteDuHaut.setText(
                         bouton.getText() + " choisi " + bouton.getNbClics() + " fois"
                 );
+                texteDuBas.setText(bouton.getText() + " est une jolie couleur");
+                texteDuBas.setStyle("-fx-text-fill: " + bouton.getCouleur() + ";");
             }
         };
         vert.nbClicsProperty().addListener(nbClicsListener);
@@ -92,9 +94,10 @@ public class Palette extends Application {
 
         boutons.getChildren().addAll(vert, rouge, bleu);
 
+
         root.setCenter(panneau);
         root.setTop(texteDuHaut);
-        root.setBottom(boutons);
+        root.setBottom(bas);
 
         Scene scene = new Scene(root);
 
